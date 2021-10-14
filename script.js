@@ -19,7 +19,9 @@ function passGenerator(basicPassword, serviceName) {
 
   newPassword =
     serviceName.slice(-1) +
-    serviceName.charAt(vowelCount - 1) +
+    (vowelCount > 0
+      ? serviceName.charAt(vowelCount - 1)
+      : serviceName.charAt(vowelCount)) +
     basicPassword +
     (serviceName.length - vowelCount) +
     serviceName.charAt(0);
@@ -30,5 +32,7 @@ document.querySelector("#submit").addEventListener("click", () => {
   const basicPassword = document.querySelector("#basicPassword").value;
   const serviceName = document.querySelector("#serviceName").value;
 
-  console.log(passGenerator(basicPassword, serviceName));
+  const password = document.createElement("p");
+  password.textContent = passGenerator(basicPassword, serviceName);
+  document.querySelector("main").append(password);
 });
